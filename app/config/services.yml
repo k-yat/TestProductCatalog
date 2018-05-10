@@ -33,3 +33,17 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    admin.category:
+        class: AppBundle\Admin\CategoryAdmin
+        arguments: [~, AppBundle\Entity\Category, 'SonataAdminBundle:CRUD']
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Category }
+        public: true
+
+    admin.product:
+        class: AppBundle\Admin\ProductAdmin
+        arguments: [~, AppBundle\Entity\Product, 'SonataAdminBundle:CRUD']
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Product }
+        public: true
