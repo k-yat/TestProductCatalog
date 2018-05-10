@@ -29,7 +29,7 @@ class Category
 
     /**
      * Many Products has One Category.
-     * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="category", cascade={"persist"})
      */
     private $products;
 
@@ -53,7 +53,6 @@ class Category
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -75,10 +74,43 @@ class Category
 
     /**
      * @param mixed $products
+     * @return Category
      */
-    public function setProducts($products): void
+    public function setProducts($products): Category
     {
         $this->products = $products;
+        return $this;
     }
 
+    /**
+     * @param Product $product
+     * @return Category
+     */
+    public function addProduct(Product $product): Category
+    {
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+        }
+        return $this;
+    }
+
+    /**
+     * @param Product $product
+     * @return Category
+     */
+    public function removeProduct(Product $product): Category
+    {
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
+        }
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->getName() ?: '';
+    }
 }
