@@ -1,3 +1,24 @@
-{% block body %}
+{% extends 'base.html.twig' %}
 
+{% block body %}
+    <div class="card w-50 my-3 mx-auto">
+        <div class="card-header">
+            <h4 class="m-0 p-1">Categories: </h4>
+        </div>
+        <div class="card-body">
+            {% include 'category/show_all.html.twig' with {'categories': categories} %}
+        </div>
+    </div>
+    {% if products|length > 0 %}
+        <div class="card w-50 my-3 mx-auto">
+            <div class="card-header">
+                <h4 class="m-0 p-1">{{ current_category.name }}: </h4>
+            </div>
+            <div class="card-body">
+                {% for product in products %}
+                    {% include 'product/show.html.twig' with {'product': product} %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
 {% endblock body %}
