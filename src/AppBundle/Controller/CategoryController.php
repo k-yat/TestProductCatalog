@@ -23,12 +23,16 @@ class CategoryController extends Controller
 
     /**
      * @Route("/{category_name}", name="show_category")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAllAction(Request $request)
     {
-        $categoryName = $request->get('category_name');
+        // Name restoration
+        $categoryName = ucfirst(str_replace('_', ' ', $request->get('category_name')));
         $currentCategory = $this->entityManager->getRepository(Category::class)
             ->findOneBy(['name' => $categoryName]);
+
         $categories = $this->entityManager->getRepository(Category::class)->findAll();
         $products = $this->entityManager->getRepository(Product::class)
             ->findBy(['category' => $currentCategory]);

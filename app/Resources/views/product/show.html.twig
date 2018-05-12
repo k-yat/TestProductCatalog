@@ -1,8 +1,9 @@
 <div class="card my-2 mx-auto">
     <div class="card-header">
-        {{ product.title }}
+        <span class="badge text-info">Title: </span>{{ product.title }}
     </div>
     <div class="card-body">
+        <span class="badge text-info">Category: </span>
         <a href="{{ path('show_category',
             {'category_name': product.category.name|replace(' ', '_')|lower}) }}"
            class="card-title">
