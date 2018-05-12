@@ -1,0 +1,13 @@
+<div class="card my-2 mx-auto">
+    <div class="card-header">
+        {{ product.title }}
+    </div>
+    <div class="card-body">
+        <a href="{{ path('show_category',
+            {'category_name': product.category.name|replace(' ', '_')|lower}) }}"
+           class="card-title">
+            {{ product.category }}
+        </a>
+        <p class="card-text">{{ product.description }}</p>
+    </div>
+</div>

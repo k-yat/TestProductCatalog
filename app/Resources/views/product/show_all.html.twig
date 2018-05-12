@@ -1,7 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-    <p>all products</p>
-
+    <h4 class="w-50 my-3 mx-auto">Products: </h4>
+    <div class="mx-auto w-50">
+        {% for product in pagination %}
+            {% include 'product/show.html.twig' with {'product': product} %}
+        {% endfor %}
+    </div>
+    <div class="w-50 my-3 mx-auto">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 {% endblock body %}
