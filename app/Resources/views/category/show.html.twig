@@ -1,18 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="card w-50 my-3 mx-auto">
-        <div class="card-header">
-            <h4 class="m-0 p-1">Categories: </h4>
-        </div>
-        <div class="card-body">
-            {% include 'category/show_all.html.twig' with {'categories': categories} %}
-        </div>
-    </div>
-    {% if products|length > 0 %}
+    {% if categories %}
         <div class="card w-50 my-3 mx-auto">
             <div class="card-header">
-                <h4 class="m-0 p-1">{{ current_category.name }}: </h4>
+                <h4 class="m-0 p-1">Categories: </h4>
+            </div>
+            <div class="card-body">
+                {% include 'category/show_all.html.twig' with {'categories': categories} %}
+            </div>
+        </div>
+    {% else %}
+        <h4 class="w-50 my-3 mx-auto">No categories.</h4>
+    {% endif %}
+
+    {% if products %}
+        <div class="card w-50 my-3 mx-auto">
+            <div class="card-header">
+                <h4 class="m-0 p-1">{{ current_category }}: </h4>
             </div>
             <div class="card-body">
                 {% for product in products %}
@@ -20,5 +25,7 @@
                 {% endfor %}
             </div>
         </div>
+    {% else %}
+        <h4 class="w-50 my-3 mx-auto">No products.</h4>
     {% endif %}
 {% endblock body %}
