@@ -32,7 +32,7 @@ class AppFixtures extends Fixture
     private function generateProductsCollection($manager, Category $category): ArrayCollection
     {
         $arrayCollection = new ArrayCollection();
-        for ($i = 0; $i < rand(1, 10); $i++) {
+        for ($i = 0; $i < 3; $i++) {
             $product = new Product();
             $product->setTitle($this->getFaker()->streetName);
             $product->setDescription($this->getFaker()->text);
