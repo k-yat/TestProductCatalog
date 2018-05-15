@@ -5,7 +5,7 @@
     <div class="card-body">
         <span class="badge text-info">Category: </span>
         <a href="{{ path('show_category',
-            {'slug': product.category.slug}) }}"
+            {'category_name': product.category.slug}) }}"
            class="card-title">
             {{ product.category }}
         </a>

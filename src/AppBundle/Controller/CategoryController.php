@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class CategoryController
@@ -31,22 +32,23 @@ class CategoryController extends Controller
     }
 
     /**
-     * @Route("/{slug}", name="show_category")
-     *
+     * @Route("/{category_name}", name="show_category")
+     * @ParamConverter("category", class="AppBundle\Entity\Category", options={"mapping": {"category_name": "slug"}})
      * @param Request $request
-     * @param string $slug
+     * @param Category $category
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction(Request $request, string $slug)
+    public function showAction(Request $request, Category $category)
     {
-        $repository = $this->entityManager->getRepository(Category::class);
-        $currentCategory = $repository->getOneBySlug($slug);
         $categories = $this->entityManager->getRepository(Category::class)->findAll();
         $products = $this->entityManager->getRepository(Product::class)
-            ->findBy(['category' => $currentCategory]);
+            ->findBy(['category' => $category]);
 
+        if (is_null($category)) {
+            throw new NotFoundHttpException('The category does not exist');
+        }
         return $this->render('category/show.html.twig', [
-            'current_category' => $currentCategory,
+            'current_category' => $category,
             'categories' => $categories,
             'products' => $products
         ]);
